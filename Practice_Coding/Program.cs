@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,32 +15,74 @@ namespace Practice_Coding
 {
     internal class BlackJack
     {
+        public static Hashtable masCard = new Hashtable() {
+            { 6, "Six" },
+            { 7, "Seven" },
+            { 8, "Eight" },
+            { 9, "Nine" },
+            { 10, "Ten" },
+            { 11, "Jack" },
+            { 12, "Queen" },
+            { 13, "King" },
+            { 14, "Ace" },
+       };
         static void Main(string[] args)
         {
-            Console.WriteLine("a");
+            Card card = new Card("Six", 6);
+            Console.WriteLine($"{card.Name}-{card.number}");
+            card--;
+            Console.WriteLine($"{card.Name}-{card.number}");
+
             Console.ReadKey();
         }
 
-        struct Card
+        public class Card
         {
             public string Name;
-            public Card(string _name)
+            public int number;
+
+            public Card(string _name, int _number)
             {
                 Name = _name;
+                number = _number;
             }
 
-            public static bool operator >(Card a, Card b)
+            public static Card operator ++(Card c1)
             {
-                if (a.Name == "Queen" && b.Name == "Jack")
+                if (c1.number < 14)
                 {
-                    return true;
+                    c1.number++;
+                    c1.Name = masCard[c1.number].ToString();
                 }
-                return false;
+                return c1;
             }
-            public static bool operator <(Card a, Card b)
+
+            public static Card operator --(Card c1)
             {
-                return false;
+                if (c1.number == 6)
+                {
+                    c1.number = 14;
+                    c1.Name = masCard[c1.number].ToString();
+                }
+                else if (c1.number > 6)
+                {
+                    c1.Name = masCard[--c1.number].ToString();
+                }
+                return c1;
             }
+
+            //public static bool operator >(Card a, Card b)
+            //{
+            //    if (a.Name == "Queen" && b.Name == "Jack")
+            //    {
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            //public static bool operator <(Card a, Card b)
+            //{
+            //    return false;
+            //}
         }
     }
 }
