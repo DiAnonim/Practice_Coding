@@ -51,10 +51,10 @@ namespace Practice_Coding
 
             Console.WriteLine(card < card2);
 
-            foreach(Card i  in cardArray)
+            /*foreach(Card i  in cardArray)
             {
                 Console.WriteLine($"{i.name}-{i.number} - {i.suit}");
-            }
+            }*/
 
             Console.ReadKey();
         }
